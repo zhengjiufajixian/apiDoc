@@ -1,0 +1,325 @@
+---
+swagger: '2.0'
+################################################################################
+#                              API Information                                 #
+################################################################################
+info:
+  version: 4.0.0
+  x-logo:
+    url: "/images/v4_app_logo.png"
+  title: Client2C API文档
+  description: |
+    Production服务器
+    ```
+      http://127.0.0.1/
+    ```
+    Staging服务器
+    ```
+      http://127.0.0.1/
+    ```
+
+    ## Structure
+    所有的请求返回结果都被包在一个envelope里, 位置都是统一的:
+    ```json
+    {
+        "status": ...,
+        "result": {...},
+        "message": "...",
+        "dev_message": "..."
+    }
+    ```
+    ## Limits
+    Be nice. 如果请求次数太快, 后端会返回:
+    ```json
+    {
+        "status": -2000,
+        "result": {},
+        "message": "点击太快了请慢一点",
+        "dev_message": "请求太频繁"
+    }
+    ```
+    目前设置是两次请求间隔250ms (ip_address + api_name + usr_id区分纪录)
+    ## Status Code
+    某些Status码需要处理
+    ```
+      1       操作成功
+      -2      数据库错误
+      -1000   TOKEN失效
+      -1001   TOKEN被拒绝
+      -1***   见res.dev_message & res.message
+    ```
+    ## Request
+    * 不需要传文件的接口, 所有请求参数填入: `body.x-www-form-urlencoded`
+    * 某些接口需要传文件, 所有请求参数填入: `body.form-data`
+
+    ## Token Validation
+    * app, 不需要 Token Validation
+    * auth, 不需要 Token Validation
+    * callback , 不需要 Token Validation
+    * 其它都模块需要 Token Validation
+
+################################################################################
+#                  Host, Base Path, Schemes and Content Types                  #
+################################################################################
+host: api-stg.hemayin.com
+basePath: /client2c/
+schemes:
+  - http
+produces:
+  - application/json
+consumes:
+  - application/json
+
+
+################################################################################
+#                                   Tags                                       #
+################################################################################
+# tags:
+#   - name: 验证（Auth）
+
+#   - name: 搜索（Search）
+
+################################################################################
+#                                   Parameters                                 #
+################################################################################
+parameters:
+  key_value:
+    name: Key-Value
+    in: header
+    description: user_id的值
+    type: string
+    required: true
+  access_token:
+    name: Access-Token
+    in: header
+    description: 用户登录后返回token的值
+    type: string
+    required: true
+  client_type:
+    name: Client-Type
+    in: header
+    description: |
+      客户端类型
+      * `mgmt`
+      * `client2b`
+      * `client2c`
+    type: string
+    required: true
+  device_type:
+    name: Device-Type
+    in: header
+    description: |
+      OS类型
+      * `android`
+      * `web`
+    type: string
+    required: true
+################################################################################
+#                                           Paths                              #
+################################################################################
+paths:
+
+############################################################
+#                      用户验证(Auth)                       #
+############################################################
+
+  /auth/getPhoneVerifyCode:
+    post:
+      tags:
+       - 用户验证(Auth)
+      summary: "用户-获取手机验证码"
+      description: "用户-获取手机验证码接口"
+      parameters:
+        - name: phone
+          in: formData
+          description: "手机号"
+          type: string
+          required: true
+        - name: code_type
+          in: formData
+          description: |
+            验证码类别
+            * 1:用户注册
+            * 2:用户修改手机号
+            * 3:密码重置
+            * 4:购买临时注册
+            * 5:临时登录
+          type: string
+          required: true
+        - name: auth_code
+          in: formData
+          description: "人机验证码"
+          type: string
+          required: true
+        - $ref: '#/parameters/key_value'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/client_type'
+        - $ref: '#/parameters/device_type'
+      responses:
+        200:
+          description: "返回结果"
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                description: "错误代码"
+              result:
+                 type: object
+                 description: "结果对象"
+              message:
+                type: string
+                description: "返回给用户的信息"
+              dev_message:
+                type: string
+                description: "返回给开发人员的信息"
+
+  /auth/getEmailVerifyCode:
+    post:
+      tags:
+       - 用户验证(Auth)
+      summary: "用户-获取邮件验证码"
+      description: "用户-获取邮件验证码接口"
+      parameters:
+        - name: email
+          in: formData
+          description: "邮箱"
+          type: string
+          required: true
+        - name: code_type
+          in: formData
+          description: |
+            验证码类别
+            * 1001:邮箱-用户注册
+            * 1002:用户修改邮箱地址
+            * 1003:邮箱-密码重置
+            * 1004:邮箱-临时登录
+          type: string
+          required: true
+        - name: auth_code
+          in: formData
+          description: "人机验证码"
+          type: string
+          required: true
+        - $ref: '#/parameters/key_value'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/client_type'
+        - $ref: '#/parameters/device_type'
+      responses:
+        200:
+          description: "返回结果"
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                description: "错误代码"
+              result:
+                 type: object
+                 description: "结果对象"
+              message:
+                type: string
+                description: "返回给用户的信息"
+              dev_message:
+                type: string
+                description: "返回给开发人员的信息"
+
+  /auth/login:
+    post:
+      tags:
+        - 用户验证(Auth)
+      summary: "用户-普通登录"
+      description: "用户-普通登录接口."
+      parameters:
+        - name: username
+          in: formData
+          description: "用户名（手机号或邮箱）"
+          type: string
+          required: true
+        - name: password
+          in: formData
+          description: "密码"
+          type: string
+          required: true
+        - name: auth_code
+          in: formData
+          description: "人机验证码"
+          type: string
+          required: true
+        - $ref: '#/parameters/key_value'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/client_type'
+        - $ref: '#/parameters/device_type'
+      responses:
+        200:
+          description: "返回结果"
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                description: "错误代码"
+              result:
+                type: object
+                properties:
+                  user_id:
+                    type: string
+                    description: "用户ID"
+                  token:
+                    type: string
+                    description: "Token值"
+              message:
+                type: string
+                description: "返回给用户的信息"
+              dev_message:
+                type: string
+                description: "返回给开发人员的信息"
+
+  /auth/register:
+    post:
+      tags:
+       - 用户验证(Auth)
+      summary: "用户-普通注册"
+      description: "用户-普通注册接口"
+      parameters:
+        - name: username
+          in: formData
+          description: "用户名（手机号或邮箱）"
+          type: string
+          required: true
+        - name: password
+          in: formData
+          description: 密码
+          type: string
+          required: true
+        - name: verify_code
+          in: formData
+          description: "注册短信验证码"
+          type: string
+          required: true
+        - $ref: '#/parameters/key_value'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/client_type'
+        - $ref: '#/parameters/device_type'
+      responses:
+        200:
+          description: "返回结果"
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                description: "错误代码"
+              result:
+                 type: object
+                 properties:
+                   user_id:
+                     type: integer
+                     description: "用户ID"
+              message:
+                type: string
+                description: "返回给用户的信息"
+              dev_message:
+                type: string
+                description: "返回给开发人员的信息"
+

@@ -1,0 +1,29 @@
+{
+  "name": "apidoc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node ./bin/apiweb"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhengjiufajixian/apiDoc.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zhengjiufajixian/apiDoc/issues"
+  },
+  "homepage": "https://github.com/zhengjiufajixian/apiDoc#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "debug": "^4.2.0",
+    "express": "^4.17.1",
+    "jade": "^1.11.0",
+    "morgan": "^1.10.0",
+    "redoc": "^2.0.0-rc.40",
+    "serve-favicon": "^2.5.0"
+  }
+}

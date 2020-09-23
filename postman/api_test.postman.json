@@ -1,0 +1,233 @@
+{
+    "variables": [],
+    "info": {
+        "name": "api_test",
+        "_postman_id": "4bce9aa8-2122-47a5-152a-f8c91330a45f",
+        "description": "",
+        "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Auth",
+            "description": "",
+            "item": [
+                {
+                    "name": "http://127.0.0.1:8100/client2c/auth/getPhoneVerifyCode",
+                    "request": {
+                        "url": "http://127.0.0.1:8100/client2c/auth/getPhoneVerifyCode",
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Key-Value",
+                                "value": "",
+                                "description": ""
+                            },
+                            {
+                                "key": "Access-Token",
+                                "value": "",
+                                "description": ""
+                            },
+                            {
+                                "key": "Client-Type",
+                                "value": "client2c",
+                                "description": ""
+                            },
+                            {
+                                "key": "Device-Type",
+                                "value": "web",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "phone",
+                                    "value": "",
+                                    "type": "text",
+                                    "enabled": true
+                                },
+                                {
+                                    "key": "code_type",
+                                    "value": "3",
+                                    "type": "text",
+                                    "enabled": true
+                                },
+                                {
+                                    "key": "auth_code",
+                                    "value": "",
+                                    "type": "text",
+                                    "enabled": true
+                                }
+                            ]
+                        },
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://127.0.0.1:8100/client2c/auth/getEmailVerifyCode",
+                    "request": {
+                        "url": "http://127.0.0.1:8100/client2c/auth/getEmailVerifyCode",
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Key-Value",
+                                "value": "",
+                                "description": ""
+                            },
+                            {
+                                "key": "Access-Token",
+                                "value": "",
+                                "description": ""
+                            },
+                            {
+                                "key": "Client-Type",
+                                "value": "client2c",
+                                "description": ""
+                            },
+                            {
+                                "key": "Device-Type",
+                                "value": "web",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "email",
+                                    "value": "",
+                                    "type": "text",
+                                    "enabled": true
+                                },
+                                {
+                                    "key": "code_type",
+                                    "value": "1001",
+                                    "type": "text",
+                                    "enabled": true
+                                },
+                                {
+                                    "key": "auth_code",
+                                    "value": "",
+                                    "type": "text",
+                                    "enabled": true
+                                }
+                            ]
+                        },
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://127.0.0.1:8100/client2c/auth/login",
+                    "request": {
+                        "url": "http://127.0.0.1:8100/client2c/auth/login",
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Key-Value",
+                                "value": "",
+                                "description": ""
+                            },
+                            {
+                                "key": "Access-Token",
+                                "value": "",
+                                "description": ""
+                            },
+                            {
+                                "key": "Client-Type",
+                                "value": "client2c",
+                                "description": ""
+                            },
+                            {
+                                "key": "Device-Type",
+                                "value": "web",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "username",
+                                    "value": "",
+                                    "type": "text",
+                                    "enabled": true
+                                },
+                                {
+                                    "key": "password",
+                                    "value": "",
+                                    "type": "text",
+                                    "enabled": true
+                                },
+                                {
+                                    "key": "auth_code",
+                                    "value": "",
+                                    "type": "text",
+                                    "enabled": true
+                                }
+                            ]
+                        },
+                        "description": null
+                    },
+                    "response": []
+                },
+                {
+                    "name": "http://127.0.0.1:8100/client2c/auth/register",
+                    "request": {
+                        "url": "http://127.0.0.1:8100/client2c/auth/register",
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Key-Value",
+                                "value": "",
+                                "description": ""
+                            },
+                            {
+                                "key": "Access-Token",
+                                "value": "",
+                                "description": ""
+                            },
+                            {
+                                "key": "Client-Type",
+                                "value": "client2c",
+                                "description": ""
+                            },
+                            {
+                                "key": "Device-Type",
+                                "value": "web",
+                                "description": ""
+                            }
+                        ],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "username",
+                                    "value": "",
+                                    "type": "text",
+                                    "enabled": true
+                                },
+                                {
+                                    "key": "password",
+                                    "value": "",
+                                    "type": "text",
+                                    "enabled": true
+                                },
+                                {
+                                    "key": "verify_code",
+                                    "value": "",
+                                    "type": "text",
+                                    "enabled": true
+                                }
+                            ]
+                        },
+                        "description": ""
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ]
+}
